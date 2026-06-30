@@ -1,209 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where to help:</title>
+    <title>Where to help</title>
     <style>
+        :root {
+            --primary:   #1a5c8a;
+            --primary-dark: #134669;
+            --accent:    #2161ba;
+            --accent-dark: #bf5508;
+            --bg:        #f0f4f8;
+            --card-bg:   #ffffff;
+            --text:      #2d3748;
+            --muted:     #718096;
+            --border:    #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
+            padding: 32px 16px 60px;
         }
 
         .container {
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Flag stripe */
+        .flag-stripe {
+            height: 5px;
+            border-radius: 3px;
+            background: linear-gradient(to right,
+                #CF9A00 33.3%,
+                #003F87 33.3% 66.6%,
+                #CC0001 66.6%);
+            margin-bottom: 22px;
         }
 
         h1 {
-            margin-bottom: 30px;
-        }
-
-        a {
-            display: block;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        a:hover {
-            background: #0056b3;
-        }
-
-        .bank-btn {
-            display: block;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            width: 100%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 18px;
             text-align: center;
         }
 
-        .bank-btn:hover {
-            background: #0056b3;
-        }
-
-        .bank-details {
-            display: none;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 15px;
-            margin: -5px 0 10px;
-            text-align: left;
-            font-size: 0.9rem;
-            color: #333;
-        }
-
-        .bank-details.open {
-            display: block;
-        }
-
-        .bank-details table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .bank-details td {
-            padding: 6px 4px;
-            vertical-align: top;
-        }
-
-        .bank-details td:first-child {
-            font-weight: bold;
-            white-space: nowrap;
-            padding-right: 12px;
-            color: #555;
-        }
-
-        .copy-btn {
-            background: none;
-            border: 1px solid #007bff;
-            color: #007bff;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            margin-left: 6px;
-            vertical-align: middle;
-        }
-
-        .copy-btn:hover {
-            background: #007bff;
-            color: white;
-        }
-
+        /* Intro card */
         .intro {
-            background: white;
-            border-left: 4px solid #007bff;
-            border-radius: 10px;
-            padding: 16px 18px;
-            margin-bottom: 24px;
-            text-align: left;
-            color: #444;
-            font-size: 0.92rem;
-            line-height: 1.6;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 28px;
+            color: #4a5568;
+            font-size: 0.91rem;
+            line-height: 1.65;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
 
         .intro strong {
             display: block;
             font-size: 1rem;
-            color: #222;
+            color: var(--text);
             margin-bottom: 8px;
+        }
+
+        /* ── Currency toggle buttons ── */
+        .currency-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .currency-btn {
+            flex: 1;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 10px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(26,92,138,0.25);
+        }
+
+        .currency-btn:hover   { background: var(--primary-dark); }
+        .currency-btn.active  { background: var(--primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+
+        .currency-panel { display: none; margin-bottom: 8px; }
+        .currency-panel.open { display: block; }
+
+        /* ── Initiative cards (always visible once currency is open) ── */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-header p {
+            margin: 0;
+            font-size: 0.83rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .card-body {
+            padding: 14px 18px;
+        }
+
+        /* ── Payment method buttons inside cards ── */
+        .method-btn {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 11px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .method-btn:hover { background: var(--accent-dark); }
+
+        /* Details panel beneath method button */
+        .method-details {
+            display: none;
+            background: #f7fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: -4px 0 8px;
+            font-size: 0.86rem;
+            color: var(--text);
+        }
+
+        .method-details.open { display: block; }
+
+        .method-details table { width: 100%; border-collapse: collapse; }
+        .method-details td { padding: 5px 4px; vertical-align: top; }
+        .method-details td:first-child {
+            font-weight: 600;
+            white-space: nowrap;
+            padding-right: 12px;
+            color: var(--muted);
+            width: 1%;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-size: 0.73rem;
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: background 0.15s;
+        }
+
+        .copy-btn:hover { background: var(--primary); color: white; }
+
+        /* External link styled as a method button */
+        .ext-link {
+            display: block;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 11px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .ext-link:hover { background: var(--accent-dark); }
+
+        .coming-soon {
+            color: var(--muted);
+            font-size: 0.86rem;
+            font-style: italic;
+            text-align: center;
+            padding: 10px 0 4px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Links to help Venezuela</h1>
+        <div class="flag-stripe"></div>
+        <h1>Help Venezuela 🇻🇪</h1>
+
         <div class="intro">
-            <strong>🇻🇪 Help Venezuela</strong>
-            Following the recent earthquake in Venezuela, many families are facing difficult circumstances. We are collecting donations to support those affected.
+            <strong>Make a difference today</strong>
+            Following the recent earthquake in Venezuela, many families are facing devastating circumstances. We are
+            collecting donations to support those affected.
             <br><br>
-            Thanks to your generosity, donations are already reaching families in need. However, there is still much to do — if you can contribute or share this message, any donation continues to make a difference.
-        </div>
-<button class="bank-btn" onclick="toggleBizum()">Bizum</button>
-        <div class="bank-details" id="bizum">
-            <table>
-                <tr>
-                    <td>Number</td>
-                    <td><span id="bizumVal">625 02 93 92</span>
-                        <button class="copy-btn" onclick="copyText('bizumVal', this)">Copy</button>
-                    </td>
-                    
-                </tr>
-               
-            </table>
+            Thanks to your help, aid is already reaching families in need. There is still much to do —
+            any contribution, big or small, continues to make a real difference.
         </div>
 
-        <a href="https://www.paypal.com/pools/c/9qreksZg60" target="_blank">Paypal</a>
-        <button class="bank-btn" onclick="toggleBank()">Bank Transfer</button>
-        <div class="bank-details" id="bankDetails">
-            <table>
-                <tr>
-                    <td>Account Holder</td>
-                    <td>Marcela Marcial</td>
-                </tr>
-                <tr>
-                    <td>IBAN</td>
-                    <td>
-                        <span id="ibanVal">ES63 0182 5322 2102 0032 5204</span>
-                        <button class="copy-btn" onclick="copyText('ibanVal', this)">Copy</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>BIC / SWIFT</td>
-                    <td>
-                        <span id="bicVal">BBVAESMM</span>
-                        <button class="copy-btn" onclick="copyText('bicVal', this)">Copy</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Bank</td>
-                    <td>BBVA</td>
-                </tr>
-                <tr>
-                    <td>Reference</td>
-                    <td>Venezuela donation</td>
-                </tr>
-            </table>
+        <!-- ── Currency selector ── -->
+        <div class="currency-row">
+            <button class="currency-btn" onclick="toggleCurrency('euros-panel', this)">💶 Donate in Euros</button>
+            <button class="currency-btn" onclick="toggleCurrency('dollars-panel', this)">💵 Donate in Dollars</button>
         </div>
 
-        <a href="https://www.gofundme.com/f/ayuda-de-emergencia-para-las-familias-afectadas?utm_campaign=natman_sharesheet_dash&utm_medium=customer&ts=1782508891&utm_source=native_options" target="_blank">Go found me</a>
+        <!-- ── EUROS panel ── -->
+        <div class="currency-panel" id="euros-panel">
+
+            <!-- Card 1: VLERIA -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Marcial Family</h3>
+                    <p>Marcial Family between Spain and Venezuela are receiving the donation, packing them and transporting food, water, medicine, and
+                       emergency item to those people left without homes. </p>
+                       <p>Instagram:  <a href="https://www.instagram.com/machemarcial?igsh=MTF6Z2M5cnZ1bGhpeg==" target="_blank">@machemarcial</a> </p>
+                </div>
+                <div class="card-body">
+                    <button class="method-btn" onclick="togglePanel('bizum-panel', this)">📱 Bizum</button>
+                    <div class="method-details" id="bizum-panel">
+                        <table>
+                            <tr>
+                                <td>Number</td>
+                                <td>
+                                    <span id="bizumVal">625 02 93 92</span>
+                                    <button class="copy-btn" onclick="copyText('bizumVal', this)">Copy</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <a class="ext-link" href="https://www.paypal.com/pools/c/9qreksZg60" target="_blank">💳 PayPal</a>
+
+                    <button class="method-btn" onclick="togglePanel('bank-panel', this)">🏦 Bank Transfer</button>
+                    <div class="method-details" id="bank-panel">
+                        <table>
+                            <tr>
+                                <td>Holder</td>
+                                <td>Marcela Marcial</td>
+                            </tr>
+                            <tr>
+                                <td>IBAN</td>
+                                <td>
+                                    <span id="ibanVal">ES63 0182 5322 2102 0032 5204</span>
+                                    <button class="copy-btn" onclick="copyText('ibanVal', this)">Copy</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BIC</td>
+                                <td>
+                                    <span id="bicVal">BBVAESMM</span>
+                                    <button class="copy-btn" onclick="copyText('bicVal', this)">Copy</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bank</td>
+                                <td>BBVA</td>
+                            </tr>
+                            <tr>
+                                <td>Reference</td>
+                                <td>Venezuela donation</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <a class="ext-link" href="https://pots.lydia.me/collect/pots?id=66356-soutien-au-venezuela" target="_blank">💳 Lydia</a>
+                </div>
+            </div>
+
+            <!-- Card 2: GoFundMe -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>GoFundMe — Emergency Aid</h3>
+                    <p>An open crowdfunding campaign for families affected by the earthquake. Funds are managed
+                       transparently and distributed by verified local volunteers on the ground in Venezuela.</p>
+                </div>
+                <div class="card-body">
+                    <a class="ext-link"
+                       href="https://www.gofundme.com/f/ayuda-de-emergencia-para-las-familias-afectadas?utm_campaign=natman_sharesheet_dash&utm_medium=customer&ts=1782508891&utm_source=native_options"
+                       target="_blank">
+                        → Open GoFundMe campaign
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Placeholder -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Initiative 3</h3>
+                    <p>More information about this initiative coming soon. Check back for updates.</p>
+                </div>
+                <div class="card-body">
+                    <p class="coming-soon">Payment methods coming soon…</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── DOLLARS panel ── -->
+        <div class="currency-panel" id="dollars-panel">
+            <div class="card">
+                <div class="card-body">
+                    <p class="coming-soon">Dollar donation options coming soon…</p>
+                </div>
+            </div>
+        </div>
 
     </div>
+
     <script>
-        function copyBizum(btn) {
-            navigator.clipboard.writeText('625029392').then(() => {
-                const original = btn.textContent;
-                btn.textContent = '✓ 625 02 93 92 copied!';
-                setTimeout(() => btn.textContent = original, 2000);
-            });
+        const currencyPanels = ['euros-panel', 'dollars-panel'];
+        const currencyBtns = document.querySelectorAll('.currency-btn');
+
+        function toggleCurrency(id, btn) {
+            const isAlreadyOpen = document.getElementById(id).classList.contains('open');
+            currencyPanels.forEach(p => document.getElementById(p).classList.remove('open'));
+            currencyBtns.forEach(b => b.classList.remove('active'));
+            if (!isAlreadyOpen) {
+                document.getElementById(id).classList.add('open');
+                btn.classList.add('active');
+            }
         }
-        function toggleBank() {
-            document.getElementById('bankDetails').classList.toggle('open');
+
+        function togglePanel(id, btn) {
+            const panel = document.getElementById(id);
+            const isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open', !isOpen);
         }
-        function toggleBizum() {
-            document.getElementById('bizum').classList.toggle('open');
-        }
+
         function copyText(id, btn) {
             const text = document.getElementById(id).textContent.trim();
             navigator.clipboard.writeText(text).then(() => {
@@ -213,4 +372,5 @@
         }
     </script>
 </body>
+
 </html>
