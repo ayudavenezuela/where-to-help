@@ -33,7 +33,7 @@
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
 
         /* Flag stripe */
@@ -217,6 +217,17 @@
             text-align: center;
             padding: 10px 0 4px;
         }
+
+        .footnote {
+            margin-top: 24px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-style: italic;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -226,18 +237,16 @@
         <h1>Help Venezuela 🇻🇪</h1>
 
         <div class="intro">
-            <strong>Make a difference today</strong>
-            Following the recent earthquake in Venezuela, many families are facing devastating circumstances. We are
-            collecting donations to support those affected.
-            <br><br>
-            Thanks to your help, aid is already reaching families in need. There is still much to do —
-            any contribution, big or small, continues to make a real difference.
+            <p>Following the recent <b>earthquake</b> in Venezuela, many families are facing very difficult times. Unfortunately, Venezuela does not operate under the same rules as other countries. For most cases, <b>the more official the entity, the less trustworthy it is; while community-led initiatives are more reliable.</b></p>
+            <p><b>In the links below you will find our closest friends that have been working non-stop in Caracas and La Guaira</b> buying supplies, cooking meals, organizing donations and transporting them directly to the shelters or the people in need. The initiatives listed here are the ones we can personally vouch for and trust during this time of misinformation.</p>
+            <p>Thanks to you, more donations can reach families and make a difference. You can also contribute by sharing this page.</p>
         </div>
+
+
 
         <!-- ── Currency selector ── -->
         <div class="currency-row">
-            <button class="currency-btn" onclick="toggleCurrency('euros-panel', this)">💶 Donate in Euros</button>
-            <button class="currency-btn" onclick="toggleCurrency('dollars-panel', this)">💵 Donate in Dollars</button>
+            <button width="70%" class="currency-btn" onclick="toggleCurrency('euros-panel', this)">💶 Donate in Euros</button>
         </div>
 
         <!-- ── EUROS panel ── -->
@@ -247,8 +256,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Marcial Family</h3>
-                    <p>Marcial Family between Spain and Venezuela are receiving the donation, packing them and transporting food, water, medicine, and
-                       emergency item to those people left without homes. </p>
+                    <p>Valeria Marcial and her husband, Andrés Gracia, are organizing a group of friends to cook and distribute food and supplies to people affected by the earthquake. The aid is delivered directly to those in need, without intermediaries. </p>
                        <p>Instagram:  <a href="https://www.instagram.com/machemarcial?igsh=MTF6Z2M5cnZ1bGhpeg==" target="_blank">@machemarcial</a> </p>
                 </div>
                 <div class="card-body">
@@ -265,7 +273,7 @@
                         </table>
                     </div>
 
-                    <a class="ext-link" href="https://www.paypal.com/pools/c/9qreksZg60" target="_blank">💳 PayPal</a>
+                    <a class="ext-link" href="https://www.paypal.com/pools/c/9qreksZg60" target="_blank">💳 PayPal (in German)</a>
 
                     <button class="method-btn" onclick="togglePanel('bank-panel', this)">🏦 Bank Transfer</button>
                     <div class="method-details" id="bank-panel">
@@ -299,7 +307,7 @@
                         </table>
                     </div>
 
-                    <a class="ext-link" href="https://pots.lydia.me/collect/pots?id=66356-soutien-au-venezuela" target="_blank">💳 Lydia</a>
+                    <a class="ext-link" href="https://pots.lydia.me/collect/pots?id=66356-soutien-au-venezuela" target="_blank">💳 Lydia (in French)</a>
                 </div>
             </div>
 
@@ -307,9 +315,12 @@
             <div class="card">
                 <div class="card-header">
                     <h3>GoFundMe — Emergency Aid</h3>
-                    <p>An open crowdfunding campaign for families affected by the earthquake. Funds are managed
-                       transparently and distributed by verified local volunteers on the ground in Venezuela.</p>
-                </div>
+                    <p>Hello, my name is Yoney Otero Noriega. I am raising funds to help families affected by the earthquakes in Venezuela.
+Every donation will help provide essential relief, including non-perishable food; clean drinking water; essential medicines; first aid supplies; hygiene products; baby formula, diapers, and infant care items; blankets, mattresses, and other emergency supplies.</p>
+                <p>Instagram:  <a href="https://www.instagram.com/jooyrojass?igsh=NzFhcjBoaW8xcHc0" target="_blank">@jooyrojass</a> </p>  
+
+</div>
+                
                 <div class="card-body">
                     <a class="ext-link"
                        href="https://www.gofundme.com/f/ayuda-de-emergencia-para-las-familias-afectadas?utm_campaign=natman_sharesheet_dash&utm_medium=customer&ts=1782508891&utm_source=native_options"
@@ -322,15 +333,34 @@
             <!-- Card 3: Placeholder -->
             <div class="card">
                 <div class="card-header">
-                    <h3>Initiative 3</h3>
-                    <p>More information about this initiative coming soon. Check back for updates.</p>
+                    <h3>🐾 Every Life Matters - Help affected animals</h3>
+                    <p></p>
                 </div>
-                <div class="card-body">
-                    <p class="coming-soon">Payment methods coming soon…</p>
-                </div>
-            </div>
+                <div class="card-header">
+<p>
+A little of the work that has been carried out in Maracay: collection centers, distribution of supplies, and visits to La Colonia Tovar and Puerto Cruz.
+At the collection centers, efforts have included coordinating donations, helping sort supplies, providing logistical support for the distribution of donations, and offering veterinary assistance to animals affected by the earthquake. 
+</p>
+<p>Instagram:  <a href="https://www.instagram.com/romeroandrovet?igsh=MXhrajkwOGN0bnM0dQ==" target="_blank">@romeroandrovet</a> </p>   </div>             
+<div class="card-body">
+                  
+                    <button class="method-btn" onclick="togglePanel('bizum-panel-2', this)">📱 Bizum</button>
+                    <div class="method-details" id="bizum-panel-2">
+                        <table>
+                            <tr>
+                                <td>Number</td>
+                                <td>
+                                    <span id="bizumValRomero">661 350 687</span>
+                                    <button class="copy-btn" onclick="copyText('bizumVal', this)">Copy</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-        </div>
+                </div><!-- /card-body -->
+            </div><!-- /card 3 -->
+
+        </div><!-- /euros-panel -->
 
         <!-- ── DOLLARS panel ── -->
         <div class="currency-panel" id="dollars-panel">
@@ -340,6 +370,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Always visible footnotes -->
+        <p class="footnote" style="margin-top:8px; border-top:none; padding-top:0;">If you're unsure where to donate or nothing feels trustworthy enough, contact a Venezuelan friend you trust for guidance, or simply wait. This emergency will not end soon. It will last for months, or even years, and your help will still be needed later.</p>
 
     </div>
 
